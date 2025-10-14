@@ -1,0 +1,31 @@
+{% comment %}
+  The home page template
+{% endcomment %}
+
+{%- if settings.enable_announcement -%}
+  {%- render 'announcement-bar' -%}
+{%- endif -%}
+
+{%- if settings.enable_hero_section -%}
+  {%- render 'hero-section' -%}
+{%- endif -%}
+
+{%- if settings.enable_featured_collections -%}
+  {%- render 'featured-collections' -%}
+{%- endif -%}
+
+{%- if settings.enable_featured_products -%}
+  {%- render 'featured-products' -%}
+{%- endif -%}
+
+{%- if settings.enable_about_section -%}
+  {%- render 'about-section' -%}
+{%- endif -%}
+
+{%- if settings.enable_testimonials -%}
+  {%- render 'testimonials-section' -%}
+{%- endif -%}
+
+{%- if settings.enable_newsletter -%}
+  {%- render 'newsletter-section' -%}
+{%- endif -%}

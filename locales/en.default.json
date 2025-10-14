@@ -1,0 +1,84 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "search": "Search",
+      "placeholder": "Search products...",
+      "close": "Close search"
+    },
+    "share": {
+      "success_message": "Link copied to clipboard"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "link_messages": {
+      "new_window": "Opens in a new window."
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "close_menu": "Close menu"
+    },
+    "footer": {
+      "quick_links": "Quick Links",
+      "customer_service": "Customer Service",
+      "contact_us": "Contact Us",
+      "shipping": "Shipping",
+      "returns": "Returns",
+      "size_guide": "Size Guide",
+      "newsletter": "Newsletter",
+      "newsletter_description": "Subscribe to get updates on new products and exclusive offers.",
+      "newsletter_placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "all_rights_reserved": "All rights reserved.",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service",
+      "refund_policy": "Refund Policy"
+    },
+    "cart": {
+      "cart_error": "There was an error while updating your cart. Please try again.",
+      "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "value_unavailable": "{{ option_value }} - Unavailable",
+      "on_sale": "Sale",
+      "features": "Features",
+      "media": {
+        "image_available": "Image {{ index }} of {{ count }}"
+      }
+    }
+  },
+  "collections": {
+    "sorting": {
+      "title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_descending": "Date, new to old",
+      "date_ascending": "Date, old to new"
+    },
+    "general": {
+      "no_matches": "Sorry, there are no products in this collection",
+      "use_fewer_filters_html": "Try <a href=\"{{ link }}\">removing some filters</a> or <a href=\"{{ link }}\">clear all</a>"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Account"
+    }
+  }
+}
