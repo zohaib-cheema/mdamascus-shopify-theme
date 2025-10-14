@@ -1,52 +1,62 @@
 {% comment %}
-  The header section
+  Ultra-Modern Header Section for MDamascus
 {% endcomment %}
 
-<header class="header">
+<header class="header" id="header">
+  <div class="header-background"></div>
+  <div class="header-particles"></div>
+  
   <div class="page-width">
     <div class="header__content">
-      <div class="header__left">
-        <button class="header__menu-toggle" aria-label="{{ 'sections.header.menu' | t }}">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        
-        <div class="header__logo">
-          <a href="{{ routes.root_url }}">
-            {%- if settings.logo != blank -%}
-              <img
-                src="{{ settings.logo | image_url: width: 200 }}"
-                alt="{{ shop.name }}"
-                width="{{ settings.logo.width }}"
-                height="{{ settings.logo.height }}"
-              >
-            {%- else -%}
-              <span class="header__logo-text">{{ shop.name }}</span>
-            {%- endif -%}
-          </a>
-        </div>
+      <!-- Logo Section -->
+      <div class="header__logo">
+        <a href="{{ routes.root_url }}" class="logo-link">
+          <div class="logo-container">
+            <div class="logo-icon">
+              <svg viewBox="0 0 100 100" class="logo-svg">
+                <defs>
+                  <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#FF8C42;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M20 20 L80 20 L80 80 L20 80 Z" fill="url(#logoGradient)" class="logo-path"/>
+                <text x="50" y="60" text-anchor="middle" class="logo-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="32">M</text>
+              </svg>
+            </div>
+            <div class="logo-text-container">
+              <span class="logo-main">Damascus</span>
+              <span class="logo-sub">Premium</span>
+            </div>
+          </div>
+        </a>
       </div>
 
+      <!-- Navigation -->
       <nav class="header__nav">
-        <ul class="header__nav-list">
+        <ul class="nav-list">
           {%- for link in linklists.main-menu.links -%}
-            <li class="header__nav-item">
-              <a href="{{ link.url }}" class="header__nav-link">
-                {{ link.title }}
+            <li class="nav-item">
+              <a href="{{ link.url }}" class="nav-link" data-text="{{ link.title }}">
+                <span class="nav-link-text">{{ link.title }}</span>
+                <span class="nav-link-bg"></span>
               </a>
               
               {%- if link.links != blank -%}
-                <div class="header__dropdown">
-                  <ul class="header__dropdown-list">
+                <div class="nav-dropdown">
+                  <div class="dropdown-content">
                     {%- for childlink in link.links -%}
-                      <li class="header__dropdown-item">
-                        <a href="{{ childlink.url }}" class="header__dropdown-link">
-                          {{ childlink.title }}
-                        </a>
-                      </li>
+                      <a href="{{ childlink.url }}" class="dropdown-link">
+                        <span class="dropdown-icon">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                        <span class="dropdown-text">{{ childlink.title }}</span>
+                      </a>
                     {%- endfor -%}
-                  </ul>
+                  </div>
                 </div>
               {%- endif -%}
             </li>
@@ -54,62 +64,104 @@
         </ul>
       </nav>
 
-      <div class="header__right">
-        <div class="header__search">
-          <button class="header__search-toggle" aria-label="{{ 'general.search.search' | t }}">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <!-- Header Actions -->
+      <div class="header__actions">
+        <!-- Search -->
+        <div class="action-item search-container">
+          <button class="action-btn search-btn" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="search-icon">
               <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
+          <div class="search-overlay">
+            <div class="search-content">
+              <form action="{{ routes.search_url }}" method="get" class="search-form">
+                <div class="search-input-group">
+                  <input
+                    type="search"
+                    name="q"
+                    placeholder="Search premium products..."
+                    class="search-input"
+                    autocomplete="off"
+                  >
+                  <button type="submit" class="search-submit">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
 
-        <div class="header__account">
-          <a href="{{ routes.account_url }}" class="header__account-link">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <!-- Account -->
+        <div class="action-item">
+          <a href="{{ routes.account_url }}" class="action-btn account-btn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="account-icon">
               <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
               <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2"/>
             </svg>
-            <span class="header__account-text">{{ 'customer.account.title' | t }}</span>
           </a>
         </div>
 
-        <div class="header__cart">
-          <a href="{{ routes.cart_url }}" class="header__cart-link" id="cart-icon-bubble">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <!-- Cart -->
+        <div class="action-item cart-container">
+          <a href="{{ routes.cart_url }}" class="action-btn cart-btn" id="cart-icon-bubble">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="cart-icon">
               <path d="M7 4V2C7 1.44772 7.44772 1 8 1H12C12.5523 1 13 1.44772 13 2V4M7 4H5C4.44772 4 4 4.44772 4 5V17C4 18.1046 4.89543 19 6 19H14C15.1046 19 16 18.1046 16 17V5C16 4.44772 15.5523 4 15 4H13M7 4H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="header__cart-count" id="cart-count">{{ cart.item_count }}</span>
+            <span class="cart-count" id="cart-count">{{ cart.item_count }}</span>
+            <div class="cart-ripple"></div>
           </a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="action-item mobile-menu-toggle">
+          <button class="action-btn menu-toggle" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div class="header__mobile-menu">
-    <div class="header__mobile-menu-content">
-      <div class="header__mobile-menu-header">
-        <h2>{{ 'sections.header.menu' | t }}</h2>
-        <button class="header__mobile-menu-close" aria-label="{{ 'sections.header.close_menu' | t }}">
+  <div class="mobile-menu">
+    <div class="mobile-menu-backdrop"></div>
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <div class="mobile-logo">
+          <span class="logo-main">Damascus</span>
+          <span class="logo-sub">Premium</span>
+        </div>
+        <button class="mobile-menu-close" aria-label="Close menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
       </div>
       
-      <nav class="header__mobile-nav">
-        <ul class="header__mobile-nav-list">
+      <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
           {%- for link in linklists.main-menu.links -%}
-            <li class="header__mobile-nav-item">
-              <a href="{{ link.url }}" class="header__mobile-nav-link">
-                {{ link.title }}
+            <li class="mobile-nav-item">
+              <a href="{{ link.url }}" class="mobile-nav-link">
+                <span class="mobile-nav-text">{{ link.title }}</span>
+                <span class="mobile-nav-arrow">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
               </a>
               
               {%- if link.links != blank -%}
-                <ul class="header__mobile-subnav">
+                <ul class="mobile-subnav">
                   {%- for childlink in link.links -%}
-                    <li class="header__mobile-subnav-item">
-                      <a href="{{ childlink.url }}" class="header__mobile-subnav-link">
+                    <li class="mobile-subnav-item">
+                      <a href="{{ childlink.url }}" class="mobile-subnav-link">
                         {{ childlink.title }}
                       </a>
                     </li>
@@ -122,421 +174,619 @@
       </nav>
     </div>
   </div>
-
-  <!-- Search Overlay -->
-  <div class="header__search-overlay">
-    <div class="header__search-content">
-      <div class="header__search-header">
-        <h2>{{ 'general.search.search' | t }}</h2>
-        <button class="header__search-close" aria-label="{{ 'general.search.close' | t }}">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-      
-      <form action="{{ routes.search_url }}" method="get" class="header__search-form">
-        <input
-          type="search"
-          name="q"
-          placeholder="{{ 'general.search.placeholder' | t }}"
-          class="header__search-input"
-          autocomplete="off"
-        >
-        <button type="submit" class="header__search-submit">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </form>
-    </div>
-  </div>
 </header>
 
 <style>
+  /* Import Premium Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+  /* Header Base */
   .header {
-    background: rgba(26, 26, 26, 0.95);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--color-dark-lighter);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
-    transition: all var(--transition-normal);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .header.scrolled {
-    background: rgba(26, 26, 26, 0.98);
-    box-shadow: var(--shadow-lg);
+  .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .header-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 140, 66, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .header.scrolled .header-background {
+    background: rgba(10, 10, 10, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .header.scrolled .header-particles {
+    opacity: 1;
   }
 
   .header__content {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 0;
+    min-height: 80px;
   }
 
-  .header__left {
+  /* Logo */
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .logo-container {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  .header__menu-toggle {
-    display: none;
+  .logo-icon {
+    width: 50px;
+    height: 50px;
+    position: relative;
+  }
+
+  .logo-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.3));
+  }
+
+  .logo-path {
+    animation: logoGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes logoGlow {
+    0% { filter: drop-shadow(0 0 5px rgba(255, 107, 53, 0.5)); }
+    100% { filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.8)); }
+  }
+
+  .logo-text-container {
+    display: flex;
     flex-direction: column;
-    gap: 4px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
   }
 
-  .header__menu-toggle span {
-    width: 20px;
-    height: 2px;
-    background-color: var(--color-base-text);
-    transition: all 0.3s ease;
-  }
-
-  .header__logo img {
-    height: 45px;
-    width: auto;
-    transition: transform var(--transition-fast);
-  }
-
-  .header__logo:hover img {
-    transform: scale(1.05);
-  }
-
-  .header__logo-text {
+  .logo-main {
+    font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     font-weight: 800;
-    color: var(--color-light);
-    text-decoration: none;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #FFFFFF;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
+  .logo-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #FF6B35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: -2px;
+  }
+
+  /* Navigation */
   .header__nav {
     display: flex;
+    align-items: center;
   }
 
-  .header__nav-list {
+  .nav-list {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 2rem;
+    gap: 0.5rem;
   }
 
-  .header__nav-link {
-    color: var(--color-light);
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #FFFFFF;
     text-decoration: none;
-    font-weight: 600;
-    font-size: var(--font-size-base);
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-    position: relative;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
   }
 
-  .header__nav-link:hover {
-    color: var(--color-primary);
-    background: rgba(255, 107, 53, 0.1);
-  }
-
-  .header__nav-link::after {
-    content: '';
+  .nav-link-bg {
     position: absolute;
-    bottom: -2px;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-primary);
-    transition: all var(--transition-fast);
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 140, 66, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
   }
 
-  .header__nav-link:hover::after {
-    width: 80%;
+  .nav-link:hover .nav-link-bg {
+    opacity: 1;
   }
 
-  .header__nav-item {
+  .nav-link:hover {
+    color: #FF6B35;
+    transform: translateY(-2px);
+  }
+
+  .nav-link-text {
     position: relative;
+    z-index: 2;
   }
 
-  .header__dropdown {
+  /* Dropdown */
+  .nav-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--color-base-background-1);
-    border: 1px solid var(--color-base-background-2);
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    min-width: 250px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
-    min-width: 200px;
-    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
   }
 
-  .header__nav-item:hover .header__dropdown {
+  .nav-item:hover .nav-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
 
-  .header__dropdown-list {
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem 0;
+  .dropdown-content {
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 
-  .header__dropdown-link {
-    display: block;
+  .dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     padding: 0.75rem 1rem;
-    color: var(--color-base-text);
+    color: #FFFFFF;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
   }
 
-  .header__dropdown-link:hover {
-    background-color: var(--color-base-background-2);
+  .dropdown-link:hover {
+    background: rgba(255, 107, 53, 0.1);
+    color: #FF6B35;
+    transform: translateX(4px);
   }
 
-  .header__right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .header__search-toggle,
-  .header__account-link,
-  .header__cart-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--color-base-text);
-    text-decoration: none;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s ease;
-  }
-
-  .header__search-toggle:hover,
-  .header__account-link:hover,
-  .header__cart-link:hover {
-    background-color: var(--color-base-background-2);
-  }
-
-  .header__cart-count {
-    background: var(--gradient-primary);
-    color: var(--color-light);
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
+  .dropdown-icon {
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    box-shadow: var(--shadow-sm);
-    animation: pulse 2s infinite;
   }
 
-  .header__account-text {
-    display: none;
-  }
-
-  /* Mobile Menu */
-  .header__mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .header__mobile-menu.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .header__mobile-menu-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80%;
-    max-width: 400px;
-    height: 100%;
-    background-color: var(--color-base-background-1);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    overflow-y: auto;
-  }
-
-  .header__mobile-menu.active .header__mobile-menu-content {
-    transform: translateX(0);
-  }
-
-  .header__mobile-menu-header {
+  /* Header Actions */
+  .header__actions {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid var(--color-base-background-2);
+    gap: 0.5rem;
   }
 
-  .header__mobile-menu-close {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
+  .action-item {
+    position: relative;
   }
 
-  .header__mobile-nav-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header__mobile-nav-item {
-    border-bottom: 1px solid var(--color-base-background-2);
-  }
-
-  .header__mobile-nav-link {
-    display: block;
-    padding: 1rem;
-    color: var(--color-base-text);
+  .action-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #FFFFFF;
     text-decoration: none;
-    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
   }
 
-  .header__mobile-subnav {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-base-background-2);
+  .action-btn:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.2);
   }
 
-  .header__mobile-subnav-link {
-    display: block;
-    padding: 0.75rem 2rem;
-    color: var(--color-base-text);
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-
-  /* Search Overlay */
-  .header__search-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .header__search-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .header__search-content {
+  .action-btn::before {
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.3) 0%, transparent 70%);
+    transition: all 0.3s ease;
     transform: translate(-50%, -50%);
-    background-color: var(--color-base-background-1);
-    border-radius: 0.5rem;
-    padding: 2rem;
-    width: 90%;
-    max-width: 500px;
   }
 
-  .header__search-header {
+  .action-btn:hover::before {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Cart Count */
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    min-width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+    animation: cartPulse 2s infinite;
+  }
+
+  @keyframes cartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .cart-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 107, 53, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+  }
+
+  .cart-btn:active .cart-ripple {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Search */
+  .search-overlay {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 400px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+  }
+
+  .search-container:hover .search-overlay {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .search-content {
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    margin-top: 0.5rem;
+  }
+
+  .search-input-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #FF6B35;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .search-submit {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .search-submit:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-menu-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 85%;
+    max-width: 400px;
+    height: 100%;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 107, 53, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.active .mobile-menu-content {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .header__search-close {
-    background: none;
-    border: none;
+  .mobile-logo .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #FFFFFF;
+  }
+
+  .mobile-logo .logo-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: #FF6B35;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .mobile-menu-close {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #FFFFFF;
     cursor: pointer;
-    padding: 0.5rem;
+    transition: all 0.2s ease;
   }
 
-  .header__search-form {
+  .mobile-menu-close:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.3);
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+  }
+
+  .mobile-nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .mobile-nav-link {
     display: flex;
-    gap: 1rem;
-  }
-
-  .header__search-input {
-    flex: 1;
-    padding: 1rem;
-    border: 1px solid var(--color-base-background-2);
-    border-radius: 0.25rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
     font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
   }
 
-  .header__search-submit {
-    background-color: var(--color-base-accent-1);
-    color: var(--color-base-background-1);
-    border: none;
-    border-radius: 0.25rem;
-    padding: 1rem;
-    cursor: pointer;
+  .mobile-nav-link:hover {
+    background: rgba(255, 107, 53, 0.1);
+    color: #FF6B35;
   }
 
-  @media screen and (max-width: 768px) {
-    .header__menu-toggle {
-      display: flex;
-    }
+  .mobile-subnav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
 
+  .mobile-subnav-link {
+    display: block;
+    padding: 1rem 2.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-subnav-link:hover {
+    color: #FF6B35;
+    background: rgba(255, 107, 53, 0.05);
+  }
+
+  /* Hamburger Menu */
+  .hamburger-line {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #FFFFFF;
+    margin: 4px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 1px;
+  }
+
+  .menu-toggle:hover .hamburger-line {
+    background: #FF6B35;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
     .header__nav {
       display: none;
     }
+    
+    .search-overlay {
+      width: 300px;
+    }
+  }
 
-    .header__account-text {
-      display: none;
+  @media (max-width: 768px) {
+    .header__content {
+      padding: 0.75rem 0;
+      min-height: 70px;
+    }
+    
+    .logo-container {
+      gap: 0.75rem;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .logo-main {
+      font-size: 1.5rem;
+    }
+    
+    .logo-sub {
+      font-size: 0.6rem;
+    }
+    
+    .action-btn {
+      width: 44px;
+      height: 44px;
+    }
+    
+    .search-overlay {
+      width: 280px;
     }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('.header');
-    const menuToggle = document.querySelector('.header__menu-toggle');
-    const mobileMenu = document.querySelector('.header__mobile-menu');
-    const mobileMenuClose = document.querySelector('.header__mobile-menu-close');
-    const searchToggle = document.querySelector('.header__search-toggle');
-    const searchOverlay = document.querySelector('.header__search-overlay');
-    const searchClose = document.querySelector('.header__search-close');
+    const header = document.getElementById('header');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuClose = document.querySelector('.mobile-menu-close');
+    const searchBtn = document.querySelector('.search-btn');
+    const searchOverlay = document.querySelector('.search-overlay');
 
     // Header scroll effect
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
       const currentScrollY = window.scrollY;
       
-      if (currentScrollY > 100) {
+      if (currentScrollY > 50) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
@@ -547,49 +797,59 @@
 
     // Mobile menu toggle
     if (menuToggle && mobileMenu) {
-      menuToggle.addEventListener('click', function() {
+      menuToggle.addEventListener('click', () => {
         mobileMenu.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
     }
 
     if (mobileMenuClose && mobileMenu) {
-      mobileMenuClose.addEventListener('click', function() {
+      mobileMenuClose.addEventListener('click', () => {
         mobileMenu.classList.remove('active');
         document.body.style.overflow = '';
       });
     }
 
-    // Search overlay toggle
-    if (searchToggle && searchOverlay) {
-      searchToggle.addEventListener('click', function() {
-        searchOverlay.classList.add('active');
-        document.querySelector('.header__search-input').focus();
-      });
-    }
-
-    if (searchClose && searchOverlay) {
-      searchClose.addEventListener('click', function() {
-        searchOverlay.classList.remove('active');
-      });
-    }
-
-    // Close overlays when clicking outside
+    // Close mobile menu when clicking backdrop
     if (mobileMenu) {
-      mobileMenu.addEventListener('click', function(e) {
-        if (e.target === mobileMenu) {
+      mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu || e.target.classList.contains('mobile-menu-backdrop')) {
           mobileMenu.classList.remove('active');
           document.body.style.overflow = '';
         }
       });
     }
 
-    if (searchOverlay) {
-      searchOverlay.addEventListener('click', function(e) {
-        if (e.target === searchOverlay) {
-          searchOverlay.classList.remove('active');
+    // Search functionality
+    if (searchBtn && searchOverlay) {
+      searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const searchInput = searchOverlay.querySelector('.search-input');
+        if (searchInput) {
+          searchInput.focus();
         }
       });
     }
+
+    // Close search on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-container')) {
+        // Search overlay will close automatically on mouse leave
+      }
+    });
+
+    // Add smooth scrolling to navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
   });
 </script>
