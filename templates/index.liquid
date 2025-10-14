@@ -161,88 +161,108 @@
       <p class="section-subtitle">Discover our most popular and highly-rated products</p>
     </div>
     
-    <div class="products-grid">
-      {%- assign featured_collection = collections.all -%}
-      {%- if collections.featured.products.size > 0 -%}
-        {%- assign featured_collection = collections.featured -%}
-      {%- endif -%}
-      {%- for product in featured_collection.products limit: 6 -%}
-        <div class="product-card animate-fade-in-up" style="animation-delay: {{ forloop.index0 | times: 0.1 }}s;">
-          <div class="product-image">
-            {%- if product.featured_media -%}
-              <a href="{{ product.url }}">
-                <img
-                  src="{{ product.featured_media | image_url: width: 400 }}"
-                  alt="{{ product.featured_media.alt | escape }}"
-                  loading="lazy"
-                >
-              </a>
-            {%- endif -%}
-            
-            <div class="product-badges">
-              {%- if product.compare_at_price > product.price -%}
-                <span class="badge badge--sale">Sale</span>
-              {%- endif -%}
-              {%- if product.tags contains 'new' -%}
-                <span class="badge badge--new">New</span>
-              {%- endif -%}
-            </div>
-            
-            <div class="product-actions">
-              <button class="product-action-btn" data-product-id="{{ product.id }}">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M10 6V10L13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <a href="{{ product.url }}" class="product-action-btn">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M1 1H3L3.4 3M5 11H15L19 3H3.4M5 11L3.4 3M5 11L2.7 13.3C2.3 13.7 2.6 14.5 3.1 14.5H15M15 11V17C15 17.6 14.6 18 14 18H6C5.4 18 5 17.6 5 17V11M15 11H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-          
-          <div class="product-info">
-            <h3 class="product-title">
-              <a href="{{ product.url }}">{{ product.title }}</a>
-            </h3>
-            
-            <div class="product-price">
-              {%- if product.compare_at_price > product.price -%}
-                <span class="price price--sale">{{ product.price | money }}</span>
-                <span class="price price--compare">{{ product.compare_at_price | money }}</span>
+    <div class="products-scroll-container">
+      <div class="products-scroll">
+        {%- assign featured_collection = collections.all -%}
+        {%- if collections.featured.products.size > 0 -%}
+          {%- assign featured_collection = collections.featured -%}
+        {%- endif -%}
+        {%- for product in featured_collection.products limit: 8 -%}
+          <div class="product-card">
+            <div class="product-image">
+              {%- if product.featured_media -%}
+                <a href="{{ product.url }}">
+                  <img
+                    src="{{ product.featured_media | image_url: width: 300 }}"
+                    alt="{{ product.featured_media.alt | escape }}"
+                    loading="lazy"
+                    width="300"
+                    height="300"
+                  >
+                </a>
               {%- else -%}
-                <span class="price">{{ product.price | money }}</span>
+                <div class="product-placeholder">
+                  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <rect width="60" height="60" rx="8" fill="#2D2D2D"/>
+                    <path d="M20 20H40V40H20V20Z" stroke="#FF6B35" stroke-width="2" fill="none"/>
+                    <path d="M25 25H35V35H25V25Z" fill="#FF6B35"/>
+                  </svg>
+                </div>
               {%- endif -%}
+              
+              <div class="product-badges">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="badge badge--sale">Sale</span>
+                {%- endif -%}
+                {%- if product.tags contains 'new' -%}
+                  <span class="badge badge--new">New</span>
+                {%- endif -%}
+              </div>
+              
+              <div class="product-overlay">
+                <a href="{{ product.url }}" class="product-link">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 3H21V9M21 3L9 15M21 3V9H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
             </div>
             
-            <div class="product-rating">
-              <div class="stars">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              
+              <div class="product-price">
+                {%- if product.compare_at_price > product.price -%}
+                  <span class="price price--sale">{{ product.price | money }}</span>
+                  <span class="price price--compare">{{ product.compare_at_price | money }}</span>
+                {%- else -%}
+                  <span class="price">{{ product.price | money }}</span>
+                {%- endif -%}
               </div>
-              <span class="rating-count">({{ product.metafields.reviews.rating_count | default: '24' }})</span>
+              
+              <div class="product-rating">
+                <div class="stars">
+                  <span>★★★★★</span>
+                </div>
+                <span class="rating-count">({{ product.metafields.reviews.rating_count | default: '24' }})</span>
+              </div>
+              
+              <div class="product-actions">
+                <a href="{{ product.url }}" class="btn btn-primary btn-sm">View Details</a>
+              </div>
             </div>
           </div>
-        </div>
-      {%- endfor -%}
-      
-      {%- if featured_collection.products.size == 0 -%}
-        <div class="no-products-message">
-          <div class="no-products-icon">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-              <path d="M32 8C18.745 8 8 18.745 8 32S18.745 56 32 56S56 45.255 56 32S45.255 8 32 8ZM32 52C21.523 52 12 42.477 12 32S21.523 12 32 12S52 21.523 52 32S42.477 52 32 52Z" fill="currentColor"/>
-              <path d="M32 20V32L40 36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        {%- endfor -%}
+        
+        {%- if featured_collection.products.size == 0 -%}
+          <div class="no-products-message">
+            <div class="no-products-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <path d="M32 8C18.745 8 8 18.745 8 32S18.745 56 32 56S56 45.255 56 32S45.255 8 32 8ZM32 52C21.523 52 12 42.477 12 32S21.523 12 32 12S52 21.523 52 32S42.477 52 32 52Z" fill="currentColor"/>
+                <path d="M32 20V32L40 36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Products Coming Soon</h3>
+            <p>We're preparing amazing products for you. Check back soon!</p>
           </div>
-          <h3>Products Coming Soon</h3>
-          <p>We're preparing amazing products for you. Check back soon!</p>
-        </div>
-      {%- endif -%}
+        {%- endif -%}
+      </div>
+      
+      <!-- Scroll Indicators -->
+      <div class="scroll-indicators">
+        <button class="scroll-btn scroll-left" aria-label="Scroll left">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="scroll-btn scroll-right" aria-label="Scroll right">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </div>
     
     {%- if featured_collection.products.size > 0 -%}
@@ -855,25 +875,251 @@
     margin: 0 auto;
   }
 
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-xl);
+  /* Products Scroll Container */
+  .products-scroll-container {
+    position: relative;
     margin-bottom: var(--space-3xl);
   }
 
+  .products-scroll {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .products-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
   .product-card {
+    flex: 0 0 280px;
     background: var(--color-dark-light);
     border-radius: var(--radius-xl);
     overflow: hidden;
     border: 1px solid var(--color-dark-lighter);
     transition: all var(--transition-normal);
+    position: relative;
   }
 
   .product-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
     border-color: var(--color-primary);
+  }
+
+  /* Product Image */
+  .product-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.05);
+  }
+
+  .product-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-dark-lighter);
+    color: var(--color-light-secondary);
+  }
+
+  /* Product Badges */
+  .product-badges {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge--sale {
+    background: var(--color-primary);
+    color: var(--color-dark);
+  }
+
+  .badge--new {
+    background: var(--color-success);
+    color: var(--color-dark);
+  }
+
+  /* Product Overlay */
+  .product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+  }
+
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+
+  .product-link {
+    width: 50px;
+    height: 50px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-dark);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+  }
+
+  .product-link:hover {
+    background: var(--color-primary-light);
+    transform: scale(1.1);
+  }
+
+  /* Product Info */
+  .product-info {
+    padding: 1.5rem;
+  }
+
+  .product-title {
+    margin-bottom: 0.75rem;
+  }
+
+  .product-title a {
+    color: var(--color-light);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color var(--transition-normal);
+  }
+
+  .product-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .product-price {
+    margin-bottom: 0.75rem;
+  }
+
+  .price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-light);
+  }
+
+  .price--sale {
+    color: var(--color-primary);
+  }
+
+  .price--compare {
+    font-size: 1rem;
+    color: var(--color-light-secondary);
+    text-decoration: line-through;
+    margin-left: 0.5rem;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stars {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+  }
+
+  .rating-count {
+    font-size: 0.85rem;
+    color: var(--color-light-secondary);
+  }
+
+  .product-actions {
+    margin-top: 1rem;
+  }
+
+  .btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  /* Scroll Indicators */
+  .scroll-indicators {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .scroll-btn {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    pointer-events: auto;
+  }
+
+  .scroll-btn:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+  }
+
+  .scroll-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .scroll-left {
+    margin-left: -25px;
+  }
+
+  .scroll-right {
+    margin-right: -25px;
   }
 
   .product-image {
@@ -1179,8 +1425,16 @@
       grid-template-columns: 1fr;
     }
 
-    .products-grid {
-      grid-template-columns: 1fr;
+    .products-scroll {
+      gap: 1rem;
+    }
+
+    .product-card {
+      flex: 0 0 250px;
+    }
+
+    .scroll-indicators {
+      display: none;
     }
 
     .form-group {
@@ -1188,3 +1442,60 @@
     }
   }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const productsScroll = document.querySelector('.products-scroll');
+  const scrollLeftBtn = document.querySelector('.scroll-left');
+  const scrollRightBtn = document.querySelector('.scroll-right');
+  
+  if (productsScroll && scrollLeftBtn && scrollRightBtn) {
+    const scrollAmount = 300; // Width of one product card + gap
+    
+    // Update button states based on scroll position
+    function updateScrollButtons() {
+      const isAtStart = productsScroll.scrollLeft <= 0;
+      const isAtEnd = productsScroll.scrollLeft >= (productsScroll.scrollWidth - productsScroll.clientWidth);
+      
+      scrollLeftBtn.disabled = isAtStart;
+      scrollRightBtn.disabled = isAtEnd;
+    }
+    
+    // Scroll left
+    scrollLeftBtn.addEventListener('click', function() {
+      productsScroll.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Scroll right
+    scrollRightBtn.addEventListener('click', function() {
+      productsScroll.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Update buttons on scroll
+    productsScroll.addEventListener('scroll', updateScrollButtons);
+    
+    // Initial state
+    updateScrollButtons();
+    
+    // Hide scroll buttons on mobile
+    function handleResize() {
+      if (window.innerWidth <= 768) {
+        scrollLeftBtn.style.display = 'none';
+        scrollRightBtn.style.display = 'none';
+      } else {
+        scrollLeftBtn.style.display = 'flex';
+        scrollRightBtn.style.display = 'flex';
+      }
+    }
+    
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  }
+});
+</script>
