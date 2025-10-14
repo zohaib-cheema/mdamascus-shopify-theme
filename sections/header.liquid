@@ -37,7 +37,7 @@
       <nav class="header__nav">
         <ul class="nav-list">
           {%- for link in linklists.main-menu.links -%}
-            {%- if link.title != 'Home' -%}
+            {%- if link.title != 'Home' and link.title != 'All Products' -%}
             <li class="nav-item">
               <a href="{{ link.url }}" class="nav-link" data-text="{{ link.title }}">
                 <span class="nav-link-text">{{ link.title }}</span>
@@ -303,7 +303,7 @@
   .header__nav {
     display: flex;
     align-items: center;
-    margin-left: 4rem;
+    margin-left: 6rem;
   }
 
   .nav-list {
@@ -679,7 +679,7 @@
     }
     
     .header__nav {
-      margin-left: 3rem;
+      margin-left: 4rem;
     }
     
     .nav-list {
