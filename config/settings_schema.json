@@ -175,5 +175,42 @@
         "label": "Vimeo"
       }
     ]
+  },
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Announcement bar"
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text"
+      },
+      {
+        "type": "url",
+        "id": "announcement_link",
+        "label": "Announcement link"
+      },
+      {
+        "type": "text",
+        "id": "announcement_link_text",
+        "label": "Link text",
+        "default": "Learn more"
+      },
+      {
+        "type": "color",
+        "id": "announcement_background_color",
+        "label": "Background color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Text color",
+        "default": "#FFFFFF"
+      }
+    ]
   }
 ]

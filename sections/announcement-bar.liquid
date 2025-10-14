@@ -1,0 +1,60 @@
+{% comment %}
+  Announcement bar section
+{% endcomment %}
+
+{%- if settings.announcement_text != blank -%}
+  <div class="announcement-bar" style="background-color: {{ settings.announcement_background_color }}; color: {{ settings.announcement_text_color }};">
+    <div class="page-width">
+      <div class="announcement-bar__content">
+        <p class="announcement-bar__text">{{ settings.announcement_text }}</p>
+        {%- if settings.announcement_link != blank -%}
+          <a href="{{ settings.announcement_link }}" class="announcement-bar__link">
+            {{ settings.announcement_link_text | default: 'Learn more' }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .announcement-bar {
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .announcement-bar__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .announcement-bar__text {
+    margin: 0;
+  }
+
+  .announcement-bar__link {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .announcement-bar__link:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar__content {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .announcement-bar {
+      font-size: 1.2rem;
+    }
+  }
+</style>

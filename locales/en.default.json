@@ -44,6 +44,9 @@
     "cart": {
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart."
+    },
+    "featured_products": {
+      "view_all": "View all products"
     }
   },
   "products": {
@@ -79,6 +82,19 @@
   "customer": {
     "account": {
       "title": "Account"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Shopping Cart",
+      "continue_shopping": "Continue shopping",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "update": "Update cart",
+      "checkout": "Check out",
+      "remove": "Remove",
+      "empty": "Your cart is empty",
+      "continue_browsing_html": "Continue browsing <a href=\"{{ link }}\">here</a>."
     }
   }
 }

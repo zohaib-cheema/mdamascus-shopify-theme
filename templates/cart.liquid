@@ -1,0 +1,441 @@
+{% comment %}
+  Cart page template
+{% endcomment %}
+
+<div class="cart-page">
+  <div class="page-width">
+    <div class="cart-header">
+      <h1 class="cart-title">{{ 'cart.general.title' | t }}</h1>
+      <a href="{{ routes.all_products_collection_url }}" class="cart-continue-shopping">
+        {{ 'cart.general.continue_shopping' | t }}
+      </a>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="cart-form">
+        <div class="cart-items">
+          {%- for item in cart.items -%}
+            <div class="cart-item" data-cart-item>
+              <div class="cart-item__image">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 200 }}"
+                    alt="{{ item.image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ item.image.width }}"
+                    height="{{ item.image.height }}"
+                  >
+                {%- endif -%}
+              </div>
+
+              <div class="cart-item__details">
+                <h3 class="cart-item__title">
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                </h3>
+                
+                {%- unless item.product.has_only_default_variant -%}
+                  <div class="cart-item__variant">
+                    {%- for option in item.options_with_values -%}
+                      <span>{{ option.name }}: {{ option.value }}</span>
+                    {%- endfor -%}
+                  </div>
+                {%- endunless -%}
+
+                {%- if item.selling_plan_allocation -%}
+                  <div class="cart-item__selling-plan">
+                    {{ item.selling_plan_allocation.selling_plan.name }}
+                  </div>
+                {%- endif -%}
+
+                <div class="cart-item__price">
+                  {%- if item.original_price != item.final_price -%}
+                    <span class="price price--sale">{{ item.final_price | money }}</span>
+                    <span class="price price--compare">{{ item.original_price | money }}</span>
+                  {%- else -%}
+                    <span class="price">{{ item.final_price | money }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+
+              <div class="cart-item__quantity">
+                <label for="quantity-{{ item.index }}" class="visually-hidden">{{ 'products.product.quantity' | t }}</label>
+                <div class="quantity-input">
+                  <button type="button" class="quantity-button quantity-button--minus" data-quantity-minus>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                  <input
+                    type="number"
+                    id="quantity-{{ item.index }}"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    class="quantity-input__field"
+                    data-cart-item-quantity
+                  >
+                  <button type="button" class="quantity-button quantity-button--plus" data-quantity-plus>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 2V10M2 6H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="cart-item__total">
+                <span class="price">{{ item.final_line_price | money }}</span>
+              </div>
+
+              <div class="cart-item__remove">
+                <button type="button" class="cart-item__remove-button" data-cart-item-remove>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <span class="visually-hidden">{{ 'cart.general.remove' | t }}</span>
+                </button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="cart-footer">
+          <div class="cart-summary">
+            <div class="cart-subtotal">
+              <span class="cart-subtotal__label">{{ 'cart.general.subtotal' | t }}</span>
+              <span class="cart-subtotal__price">{{ cart.total_price | money }}</span>
+            </div>
+
+            {%- if cart.cart_level_discount_applications.size > 0 -%}
+              <div class="cart-discounts">
+                {%- for discount in cart.cart_level_discount_applications -%}
+                  <div class="cart-discount">
+                    <span class="cart-discount__label">{{ discount.title }}</span>
+                    <span class="cart-discount__amount">-{{ discount.total_allocated_amount | money }}</span>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            <div class="cart-total">
+              <span class="cart-total__label">{{ 'cart.general.total' | t }}</span>
+              <span class="cart-total__price">{{ cart.total_price | money }}</span>
+            </div>
+
+            <div class="cart-actions">
+              <button type="submit" name="update" class="button button--secondary">
+                {{ 'cart.general.update' | t }}
+              </button>
+              <button type="submit" name="checkout" class="button button--primary">
+                {{ 'cart.general.checkout' | t }}
+              </button>
+            </div>
+
+            {%- if additional_checkout_buttons -%}
+              <div class="cart-additional-checkout-buttons">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="cart-empty">
+        <h2>{{ 'cart.general.empty' | t }}</h2>
+        <p>{{ 'cart.general.continue_browsing_html' | t: link: routes.all_products_collection_url }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .cart-page {
+    padding: 2rem 0;
+  }
+
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-base-background-2);
+  }
+
+  .cart-title {
+    font-size: 3rem;
+    margin: 0;
+    color: var(--color-base-text);
+  }
+
+  .cart-continue-shopping {
+    color: var(--color-base-accent-1);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .cart-continue-shopping:hover {
+    text-decoration: underline;
+  }
+
+  .cart-items {
+    margin-bottom: 3rem;
+  }
+
+  .cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto auto auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-base-background-2);
+  }
+
+  .cart-item__image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  .cart-item__title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+  }
+
+  .cart-item__title a {
+    color: var(--color-base-text);
+    text-decoration: none;
+  }
+
+  .cart-item__title a:hover {
+    color: var(--color-base-accent-1);
+  }
+
+  .cart-item__variant {
+    font-size: 1.2rem;
+    color: var(--color-base-text);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-item__selling-plan {
+    font-size: 1.2rem;
+    color: var(--color-base-accent-1);
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-item__price {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  .price--sale {
+    color: var(--color-base-accent-1);
+  }
+
+  .price--compare {
+    text-decoration: line-through;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+  }
+
+  .quantity-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-base-background-2);
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+
+  .quantity-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: var(--color-base-background-2);
+    color: var(--color-base-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .quantity-button:hover {
+    background-color: var(--color-base-accent-1);
+    color: var(--color-base-background-1);
+  }
+
+  .quantity-input__field {
+    width: 60px;
+    height: 40px;
+    border: none;
+    text-align: center;
+    font-size: 1.4rem;
+    background-color: var(--color-base-background-1);
+  }
+
+  .cart-item__total {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  .cart-item__remove-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-base-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+
+  .cart-item__remove-button:hover {
+    background-color: var(--color-base-background-2);
+  }
+
+  .cart-footer {
+    background-color: var(--color-base-background-2);
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+
+  .cart-summary {
+    max-width: 400px;
+    margin-left: auto;
+  }
+
+  .cart-subtotal,
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .cart-total {
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-base-background-1);
+  }
+
+  .cart-discounts {
+    margin-bottom: 1rem;
+  }
+
+  .cart-discount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    color: var(--color-base-accent-1);
+  }
+
+  .cart-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .cart-actions .button {
+    flex: 1;
+  }
+
+  .cart-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .cart-empty h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-base-text);
+  }
+
+  .cart-empty p {
+    font-size: 1.6rem;
+    color: var(--color-base-text);
+    opacity: 0.8;
+  }
+
+  .cart-additional-checkout-buttons {
+    margin-top: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .cart-header {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .cart-item {
+      grid-template-columns: 80px 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 1rem;
+    }
+
+    .cart-item__image {
+      grid-row: 1 / 3;
+    }
+
+    .cart-item__details {
+      grid-column: 2;
+    }
+
+    .cart-item__quantity,
+    .cart-item__total,
+    .cart-item__remove {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+
+    .cart-item__total {
+      justify-self: end;
+    }
+
+    .cart-item__remove {
+      justify-self: end;
+    }
+
+    .cart-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Quantity buttons
+    document.querySelectorAll('[data-quantity-plus]').forEach(button => {
+      button.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('input');
+        input.value = parseInt(input.value) + 1;
+      });
+    });
+
+    document.querySelectorAll('[data-quantity-minus]').forEach(button => {
+      button.addEventListener('click', function() {
+        const input = this.parentElement.querySelector('input');
+        if (parseInt(input.value) > 0) {
+          input.value = parseInt(input.value) - 1;
+        }
+      });
+    });
+
+    // Remove item
+    document.querySelectorAll('[data-cart-item-remove]').forEach(button => {
+      button.addEventListener('click', function() {
+        const cartItem = this.closest('[data-cart-item]');
+        const quantityInput = cartItem.querySelector('[data-cart-item-quantity]');
+        quantityInput.value = 0;
+        cartItem.closest('form').submit();
+      });
+    });
+  });
+</script>
