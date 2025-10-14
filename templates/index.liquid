@@ -152,7 +152,11 @@
     </div>
     
     <div class="products-grid">
-      {%- for product in collections.featured.products limit: 6 -%}
+      {%- assign featured_collection = collections.all -%}
+      {%- if collections.featured.products.size > 0 -%}
+        {%- assign featured_collection = collections.featured -%}
+      {%- endif -%}
+      {%- for product in featured_collection.products limit: 6 -%}
         <div class="product-card animate-fade-in-up" style="animation-delay: {{ forloop.index0 | times: 0.1 }}s;">
           <div class="product-image">
             {%- if product.featured_media -%}
@@ -216,13 +220,28 @@
           </div>
         </div>
       {%- endfor -%}
+      
+      {%- if featured_collection.products.size == 0 -%}
+        <div class="no-products-message">
+          <div class="no-products-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <path d="M32 8C18.745 8 8 18.745 8 32S18.745 56 32 56S56 45.255 56 32S45.255 8 32 8ZM32 52C21.523 52 12 42.477 12 32S21.523 12 32 12S52 21.523 52 32S42.477 52 32 52Z" fill="currentColor"/>
+              <path d="M32 20V32L40 36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Products Coming Soon</h3>
+          <p>We're preparing amazing products for you. Check back soon!</p>
+        </div>
+      {%- endif -%}
     </div>
     
-    <div class="section-footer">
-      <a href="{{ collections.all.url }}" class="button button--secondary">
-        View All Products
-      </a>
-    </div>
+    {%- if featured_collection.products.size > 0 -%}
+      <div class="section-footer">
+        <a href="{{ featured_collection.url }}" class="button button--secondary">
+          View All Products
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -628,22 +647,22 @@
   }
 
   .hero-card.card-1 {
-    top: 10%;
-    left: 5%;
+    top: 5%;
+    left: 0%;
     width: 280px;
     animation: cardFloat1 8s ease-in-out infinite;
   }
 
   .hero-card.card-2 {
-    top: 40%;
-    right: 10%;
+    top: 35%;
+    right: 0%;
     width: 300px;
     animation: cardFloat2 8s ease-in-out infinite 2s;
   }
 
   .hero-card.card-3 {
-    bottom: 15%;
-    left: 20%;
+    bottom: 5%;
+    left: 15%;
     width: 260px;
     animation: cardFloat3 8s ease-in-out infinite 4s;
   }
@@ -1023,11 +1042,65 @@
     flex: 1;
   }
 
+  .section-footer {
+    text-align: center;
+  }
+
+  .no-products-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .no-products-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    color: #FF6B35;
+  }
+
+  .no-products-message h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+  }
+
+  .no-products-message p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+
   /* Responsive Design */
   @media (max-width: 1024px) {
     .hero-content {
       grid-template-columns: 1fr;
       text-align: center;
+    }
+
+    .hero-visual {
+      height: 400px;
+      margin-top: 3rem;
+    }
+
+    .hero-card.card-1,
+    .hero-card.card-2,
+    .hero-card.card-3 {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      margin-bottom: 1rem;
     }
 
     .stats-grid {
