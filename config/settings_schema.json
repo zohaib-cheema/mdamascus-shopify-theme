@@ -17,38 +17,44 @@
       {
         "type": "color",
         "id": "colors_accent_1",
-        "default": "#121212",
-        "label": "Accent 1"
+        "default": "#FF6B35",
+        "label": "Primary Orange"
       },
       {
         "type": "color",
         "id": "colors_accent_2",
-        "default": "#121212",
-        "label": "Accent 2"
+        "default": "#FF8C42",
+        "label": "Secondary Orange"
       },
       {
         "type": "color",
         "id": "colors_outline_button_labels",
-        "default": "#121212",
+        "default": "#FF6B35",
         "label": "Outline button labels"
       },
       {
         "type": "color",
         "id": "colors_background_1",
-        "default": "#FFFFFF",
-        "label": "Background 1"
+        "default": "#1A1A1A",
+        "label": "Dark Background"
       },
       {
         "type": "color",
         "id": "colors_background_2",
-        "default": "#F3F3F3",
-        "label": "Background 2"
+        "default": "#2D2D2D",
+        "label": "Secondary Background"
       },
       {
         "type": "color",
         "id": "colors_text",
-        "default": "#121212",
-        "label": "Text"
+        "default": "#FFFFFF",
+        "label": "Text Color"
+      },
+      {
+        "type": "color",
+        "id": "colors_text_secondary",
+        "default": "#B0B0B0",
+        "label": "Secondary Text"
       }
     ]
   },

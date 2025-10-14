@@ -1,31 +1,642 @@
 {% comment %}
-  The home page template
+  Modern Homepage Template for MDamascus
 {% endcomment %}
 
-{%- if settings.enable_announcement -%}
-  {%- render 'announcement-bar' -%}
-{%- endif -%}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-background">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="page-width">
+    <div class="hero-content">
+      <div class="hero-text animate-fade-in-left">
+        <h1 class="hero-title">
+          Welcome to <span class="text-primary">MDamascus</span>
+        </h1>
+        <p class="hero-subtitle">
+          Discover premium quality products crafted with passion and precision. 
+          Experience the perfect blend of tradition and innovation.
+        </p>
+        <div class="hero-actions">
+          <a href="{{ collections.all.url }}" class="button button--primary">
+            <span>Shop Now</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4.16667 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#featured" class="button button--ghost">
+            <span>Explore</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-image animate-fade-in-right">
+        <div class="hero-image-container">
+          <div class="floating-card card-1">
+            <div class="card-content">
+              <h4>Premium Quality</h4>
+              <p>Handcrafted excellence</p>
+            </div>
+          </div>
+          <div class="floating-card card-2">
+            <div class="card-content">
+              <h4>Fast Shipping</h4>
+              <p>Worldwide delivery</p>
+            </div>
+          </div>
+          <div class="floating-card card-3">
+            <div class="card-content">
+              <h4>24/7 Support</h4>
+              <p>Always here to help</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-{%- if settings.enable_hero_section -%}
-  {%- render 'hero-section' -%}
-{%- endif -%}
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="page-width">
+    <div class="stats-grid">
+      <div class="stat-item animate-fade-in-up">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-item animate-fade-in-up" style="animation-delay: 0.1s;">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Premium Products</div>
+      </div>
+      <div class="stat-item animate-fade-in-up" style="animation-delay: 0.2s;">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Customer Support</div>
+      </div>
+      <div class="stat-item animate-fade-in-up" style="animation-delay: 0.3s;">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-{%- if settings.enable_featured_collections -%}
-  {%- render 'featured-collections' -%}
-{%- endif -%}
+<!-- Featured Products Section -->
+<section id="featured" class="featured-section">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Discover our most popular and highly-rated products</p>
+    </div>
+    
+    <div class="products-grid">
+      {%- for product in collections.featured.products limit: 6 -%}
+        <div class="product-card animate-fade-in-up" style="animation-delay: {{ forloop.index0 | times: 0.1 }}s;">
+          <div class="product-image">
+            {%- if product.featured_media -%}
+              <a href="{{ product.url }}">
+                <img
+                  src="{{ product.featured_media | image_url: width: 400 }}"
+                  alt="{{ product.featured_media.alt | escape }}"
+                  loading="lazy"
+                >
+              </a>
+            {%- endif -%}
+            
+            <div class="product-badges">
+              {%- if product.compare_at_price > product.price -%}
+                <span class="badge badge--sale">Sale</span>
+              {%- endif -%}
+              {%- if product.tags contains 'new' -%}
+                <span class="badge badge--new">New</span>
+              {%- endif -%}
+            </div>
+            
+            <div class="product-actions">
+              <button class="product-action-btn" data-product-id="{{ product.id }}">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M10 6V10L13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <a href="{{ product.url }}" class="product-action-btn">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M1 1H3L3.4 3M5 11H15L19 3H3.4M5 11L3.4 3M5 11L2.7 13.3C2.3 13.7 2.6 14.5 3.1 14.5H15M15 11V17C15 17.6 14.6 18 14 18H6C5.4 18 5 17.6 5 17V11M15 11H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <h3 class="product-title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h3>
+            
+            <div class="product-price">
+              {%- if product.compare_at_price > product.price -%}
+                <span class="price price--sale">{{ product.price | money }}</span>
+                <span class="price price--compare">{{ product.compare_at_price | money }}</span>
+              {%- else -%}
+                <span class="price">{{ product.price | money }}</span>
+              {%- endif -%}
+            </div>
+            
+            <div class="product-rating">
+              <div class="stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <span class="rating-count">({{ product.metafields.reviews.rating_count | default: '24' }})</span>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    
+    <div class="section-footer">
+      <a href="{{ collections.all.url }}" class="button button--secondary">
+        View All Products
+      </a>
+    </div>
+  </div>
+</section>
 
-{%- if settings.enable_featured_products -%}
-  {%- render 'featured-products' -%}
-{%- endif -%}
+<!-- Features Section -->
+<section class="features-section">
+  <div class="page-width">
+    <div class="features-grid">
+      <div class="feature-item animate-fade-in-left">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M24 4L30.09 15.26L42 17.27L33 26.14L35.18 38.02L24 32.77L12.82 38.02L15 26.14L6 17.27L17.91 15.26L24 4Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>Premium Quality</h3>
+        <p>Every product is carefully selected and tested to ensure the highest quality standards.</p>
+      </div>
+      
+      <div class="feature-item animate-fade-in-up">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M24 4C13.5 4 5 12.5 5 23S13.5 42 24 42S43 33.5 43 23S34.5 4 24 4ZM24 38C15.7 38 9 31.3 9 23S15.7 8 24 8S39 14.7 39 23S32.3 38 24 38Z" fill="currentColor"/>
+            <path d="M24 12V23L31 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Fast Delivery</h3>
+        <p>Quick and reliable shipping worldwide. Get your orders delivered in record time.</p>
+      </div>
+      
+      <div class="feature-item animate-fade-in-right">
+        <div class="feature-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M24 4C13.5 4 5 12.5 5 23S13.5 42 24 42S43 33.5 43 23S34.5 4 24 4ZM24 38C15.7 38 9 31.3 9 23S15.7 8 24 8S39 14.7 39 23S32.3 38 24 38Z" fill="currentColor"/>
+            <path d="M24 12V23L31 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>24/7 Support</h3>
+        <p>Our dedicated support team is always ready to help you with any questions or concerns.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-{%- if settings.enable_about_section -%}
-  {%- render 'about-section' -%}
-{%- endif -%}
+<!-- Newsletter Section -->
+<section class="newsletter-section">
+  <div class="page-width">
+    <div class="newsletter-content">
+      <div class="newsletter-text animate-fade-in-left">
+        <h2>Stay Updated</h2>
+        <p>Subscribe to our newsletter and be the first to know about new products, exclusive offers, and special promotions.</p>
+      </div>
+      
+      <div class="newsletter-form animate-fade-in-right">
+        {%- form 'customer', id: 'newsletter-form', class: 'form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="form-group">
+            <input
+              type="email"
+              name="contact[email]"
+              placeholder="Enter your email address"
+              class="form__input"
+              required
+            >
+            <button type="submit" class="button button--primary">
+              Subscribe
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</section>
 
-{%- if settings.enable_testimonials -%}
-  {%- render 'testimonials-section' -%}
-{%- endif -%}
+<style>
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--gradient-dark);
+  }
 
-{%- if settings.enable_newsletter -%}
-  {%- render 'newsletter-section' -%}
-{%- endif -%}
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23333" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-overlay);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-6xl);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-light-secondary);
+    margin-bottom: var(--space-2xl);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero-image-container {
+    position: relative;
+    height: 500px;
+  }
+
+  .floating-card {
+    position: absolute;
+    background: var(--color-dark-light);
+    border: 1px solid var(--color-dark-lighter);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-lg);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-card.card-1 {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .floating-card.card-2 {
+    top: 50%;
+    right: 20%;
+    animation-delay: 2s;
+  }
+
+  .floating-card.card-3 {
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 4s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Stats Section */
+  .stats-section {
+    padding: var(--space-3xl) 0;
+    background: var(--color-dark-light);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .stat-number {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-label {
+    font-size: var(--font-size-lg);
+    color: var(--color-light-secondary);
+  }
+
+  /* Featured Section */
+  .featured-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-light-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .product-card {
+    background: var(--color-dark-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-dark-lighter);
+    transition: all var(--transition-normal);
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  .product-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.1);
+  }
+
+  .product-badges {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .badge {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .badge--sale {
+    background: var(--color-primary);
+    color: var(--color-light);
+  }
+
+  .badge--new {
+    background: var(--color-light);
+    color: var(--color-dark);
+  }
+
+  .product-actions {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all var(--transition-normal);
+  }
+
+  .product-card:hover .product-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .product-action-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--color-dark);
+    border: 1px solid var(--color-dark-lighter);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-light);
+    transition: all var(--transition-fast);
+  }
+
+  .product-action-btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+  }
+
+  .product-info {
+    padding: var(--space-lg);
+  }
+
+  .product-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-title a {
+    color: var(--color-light);
+    transition: color var(--transition-fast);
+  }
+
+  .product-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .product-price {
+    margin-bottom: var(--space-sm);
+  }
+
+  .price--sale {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .price--compare {
+    text-decoration: line-through;
+    color: var(--color-light-muted);
+    margin-left: var(--space-xs);
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .stars {
+    color: var(--color-primary);
+  }
+
+  .rating-count {
+    color: var(--color-light-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: var(--space-3xl) 0;
+    background: var(--color-dark-light);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+  }
+
+  .feature-item {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .feature-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+    color: var(--color-light);
+  }
+
+  .feature-item h3 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-item p {
+    color: var(--color-light-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Newsletter Section */
+  .newsletter-section {
+    padding: var(--space-3xl) 0;
+    background: var(--gradient-dark);
+  }
+
+  .newsletter-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .newsletter-text h2 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .newsletter-text p {
+    font-size: var(--font-size-lg);
+    color: var(--color-light-secondary);
+  }
+
+  .form-group {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .form-group .form__input {
+    flex: 1;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .newsletter-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--font-size-4xl);
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-group {
+      flex-direction: column;
+    }
+  }
+</style>
