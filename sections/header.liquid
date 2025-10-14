@@ -37,7 +37,7 @@
       <nav class="header__nav">
         <ul class="nav-list">
           {%- for link in linklists.main-menu.links -%}
-            {%- unless link.title == 'Home' -%}
+            {%- if link.title != 'Home' -%}
             <li class="nav-item">
               <a href="{{ link.url }}" class="nav-link" data-text="{{ link.title }}">
                 <span class="nav-link-text">{{ link.title }}</span>
@@ -61,7 +61,7 @@
                 </div>
               {%- endif -%}
             </li>
-            {%- endunless -%}
+            {%- endif -%}
           {%- endfor -%}
         </ul>
       </nav>
@@ -306,9 +306,9 @@
   .nav-list {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin: 0 0 0 3rem;
     padding: 0;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .nav-item {
@@ -481,12 +481,9 @@
     font-weight: 700;
     font-family: 'Inter', sans-serif;
     border: 2px solid #0A0A0A;
+    box-shadow: none;
   }
 
-  @keyframes cartPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
 
   .cart-ripple {
     position: absolute;
@@ -732,7 +729,8 @@
   /* Responsive */
   @media (max-width: 1200px) {
     .nav-list {
-      gap: 1.5rem;
+      margin-left: 2rem;
+      gap: 2rem;
     }
     
     .nav-link {
