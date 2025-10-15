@@ -145,19 +145,6 @@
         <button class="dot" data-slide="2"></button>
         <button class="dot" data-slide="3"></button>
       </div>
-      
-      <div class="slide-arrows">
-        <button class="arrow arrow-prev" aria-label="Previous slide">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="arrow arrow-next" aria-label="Next slide">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
     </div>
   </div>
 </section>
@@ -489,7 +476,7 @@
   /* Hero Navigation */
   .hero-navigation {
     position: absolute;
-    bottom: 4rem;
+    bottom: 2rem;
     left: 0;
     right: 0;
     z-index: 10;
@@ -521,41 +508,6 @@
     background: rgba(255, 107, 53, 0.7);
   }
 
-  .slide-arrows {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .arrow {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-  }
-
-  .arrow:hover {
-    background: rgba(255, 107, 53, 0.1);
-    border-color: rgba(255, 107, 53, 0.3);
-    color: #FF6B35;
-    transform: scale(1.1);
-  }
-
-  .arrow:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
 
   .hero-badge {
     display: inline-block;
@@ -1411,16 +1363,7 @@
 
 
     .hero-navigation {
-      bottom: 2rem;
-    }
-
-    .slide-arrows {
-      padding: 0 1rem;
-    }
-
-    .arrow {
-      width: 45px;
-      height: 45px;
+      bottom: 1.5rem;
     }
 
     .featured-section {
@@ -1518,26 +1461,17 @@
 
 
     .hero-navigation {
-      bottom: 2rem;
+      bottom: 1rem;
     }
 
     .slide-dots {
       gap: 1rem;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
     }
 
     .dot {
       width: 10px;
       height: 10px;
-    }
-
-    .slide-arrows {
-      padding: 0 0.5rem;
-    }
-
-    .arrow {
-      width: 40px;
-      height: 40px;
     }
 
     .featured-section {
@@ -1605,8 +1539,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Hero Slideshow
   const slides = document.querySelectorAll('.hero-slide');
   const dots = document.querySelectorAll('.dot');
-  const prevBtn = document.querySelector('.arrow-prev');
-  const nextBtn = document.querySelector('.arrow-next');
   let currentSlide = 0;
   let slideInterval;
 
@@ -1648,21 +1580,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Event listeners
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      stopSlideshow();
-      nextSlide();
-      startSlideshow();
-    });
-  }
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      stopSlideshow();
-      prevSlide();
-      startSlideshow();
-    });
-  }
 
   // Dot navigation
   dots.forEach((dot, index) => {
