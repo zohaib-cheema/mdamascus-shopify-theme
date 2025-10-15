@@ -30,7 +30,7 @@
           
           <div class="hero-actions">
             <a href="{{ collections.all.url }}" class="btn btn-primary">
-              <span>Explore Collection</span>
+              <span>Shop All Products</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M4.16667 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -64,7 +64,7 @@
           </p>
           
           <div class="hero-actions">
-            <a href="{{ collections.chef-knives.url | default: collections.all.url }}" class="btn btn-primary">
+            <a href="{{ collections.chef-knives.url | default: '/collections/chef-knives' | default: collections.all.url }}" class="btn btn-primary">
               <span>Shop Chef Knives</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M4.16667 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -94,7 +94,7 @@
           </p>
           
           <div class="hero-actions">
-            <a href="{{ collections.swords.url | default: collections.all.url }}" class="btn btn-primary">
+            <a href="{{ collections.swords.url | default: '/collections/swords' | default: collections.all.url }}" class="btn btn-primary">
               <span>View Collection</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M4.16667 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -124,7 +124,7 @@
           </p>
           
           <div class="hero-actions">
-            <a href="/pages/custom-orders" class="btn btn-primary">
+            <a href="/pages/contact" class="btn btn-primary">
               <span>Start Custom Order</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M4.16667 10H15.8333M15.8333 10L10.8333 5M15.8333 10L10.8333 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1572,7 +1572,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function startSlideshow() {
-    slideInterval = setInterval(nextSlide, 4500); // Change slide every 4.5 seconds
+    slideInterval = setInterval(nextSlide, 6000); // Change slide every 6 seconds (industry standard)
   }
 
   function stopSlideshow() {
