@@ -1,775 +1,180 @@
 {% comment %}
-  Professional Header Section for MDamascus - Industry Standard Layout
+  Ultra-Modern Header Section for MDamascus
 {% endcomment %}
 
 <header class="header" id="header">
-  <div class="header-container">
-    <!-- Left Zone: Brand Block -->
-    <div class="header-brand">
-      <a href="{{ routes.root_url }}" class="brand-link">
-        <div class="brand-badge">
-          <svg viewBox="0 0 100 100" class="badge-svg">
-            <defs>
-              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#FF8C42;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <path d="M20 20 L80 20 L80 80 L20 80 Z" fill="url(#logoGradient)" class="badge-path"/>
-            <text x="50" y="60" text-anchor="middle" class="badge-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="28">M</text>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <span class="brand-wordmark">Damascus</span>
-          <span class="brand-sublabel">PREMIUM</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- Center Zone: Primary Navigation -->
-    <nav class="header-nav">
-      <ul class="nav-list">
-        {%- for link in linklists.main-menu.links -%}
-          {%- if link.title != 'Home' and link.title != 'All Products' -%}
-          <li class="nav-item">
-            <a href="{{ link.url }}" class="nav-link">
-              {{ link.title }}
-            </a>
-            
-            {%- if link.links != blank -%}
-              <div class="nav-dropdown">
-                <div class="dropdown-content">
-                  {%- for childlink in link.links -%}
-                    <a href="{{ childlink.url }}" class="dropdown-link">
-                      {{ childlink.title }}
-                    </a>
-                  {%- endfor -%}
-                </div>
-              </div>
-            {%- endif -%}
-          </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-    </nav>
-
-    <!-- Right Zone: Utility Actions -->
-    <div class="header-actions">
-      <!-- Search -->
-      <button class="utility-btn search-btn" aria-label="Search">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-
-      <!-- Account -->
-      <a href="{{ routes.account_url }}" class="utility-btn account-btn" aria-label="Account">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
-          <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2"/>
-        </svg>
-      </a>
-
-      <!-- Cart -->
-      <a href="{{ routes.cart_url }}" class="utility-btn cart-btn" id="cart-icon-bubble">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M7 4V2C7 1.44772 7.44772 1 8 1H12C12.5523 1 13 1.44772 13 2V4M7 4H5C4.44772 4 4 4.44772 4 5V17C4 18.1046 4.89543 19 6 19H14C15.1046 19 16 18.1046 16 17V5C16 4.44772 15.5523 4 15 4H13M7 4H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="cart-count" id="cart-count-bubble"></span>
-      </a>
-    </div>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" aria-label="Open menu">
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
-  </div>
-
-  <!-- Mobile Menu Drawer -->
-  <div class="mobile-menu-drawer" id="mobile-menu">
-    <div class="drawer-header">
-      <div class="drawer-brand">
-        <div class="brand-badge">
-          <svg viewBox="0 0 100 100" class="badge-svg">
-            <defs>
-              <linearGradient id="mobileLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#FF8C42;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
-              </linearGradient>
-            </defs>
-            <path d="M20 20 L80 20 L80 80 L20 80 Z" fill="url(#mobileLogoGradient)" class="badge-path"/>
-            <text x="50" y="60" text-anchor="middle" class="badge-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="28">M</text>
-          </svg>
-        </div>
-        <span class="brand-wordmark">Damascus</span>
-      </div>
-      <button class="drawer-close" aria-label="Close menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="drawer-content">
-      <!-- Mobile Search -->
-      <div class="mobile-search">
-        <form action="{{ routes.search_url }}" method="get" class="mobile-search-form">
-          <input
-            type="search"
-            name="q"
-            placeholder="Search products..."
-            class="mobile-search-input"
-            autocomplete="off"
-          >
-          <button type="submit" class="mobile-search-submit">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
+  <div class="header-background"></div>
+  <div class="header-particles"></div>
+  
+  <div class="page-width">
+    <div class="header__content">
+      <!-- Logo Section -->
+      <div class="header__logo">
+        <a href="{{ routes.root_url }}" class="logo-link">
+          <div class="logo-container">
+            <div class="logo-icon">
+              <svg viewBox="0 0 100 100" class="logo-svg">
+                <defs>
+                  <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#FF8C42;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:1" />
+                  </linearGradient>
+                </defs>
+                <path d="M20 20 L80 20 L80 80 L20 80 Z" fill="url(#logoGradient)" class="logo-path"/>
+                <text x="50" y="60" text-anchor="middle" class="logo-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="32">M</text>
+              </svg>
+            </div>
+            <div class="logo-text-container">
+              <span class="logo-main">Damascus</span>
+              <span class="logo-sub">Premium</span>
+            </div>
+          </div>
+        </a>
       </div>
 
-      <!-- Mobile Navigation -->
-      <nav class="mobile-nav">
-        <ul class="mobile-nav-list">
+      <!-- Navigation -->
+      <nav class="header__nav">
+        <ul class="nav-list">
           {%- for link in linklists.main-menu.links -%}
             {%- if link.title != 'Home' and link.title != 'All Products' -%}
-            <li class="mobile-nav-item">
-              <a href="{{ link.url }}" class="mobile-nav-link">
-                {{ link.title }}
+            <li class="nav-item">
+              <a href="{{ link.url }}" class="nav-link" data-text="{{ link.title }}">
+                <span class="nav-link-text">{{ link.title }}</span>
+                <span class="nav-link-bg"></span>
               </a>
+              
+              {%- if link.links != blank -%}
+                <div class="nav-dropdown">
+                  <div class="dropdown-content">
+                    {%- for childlink in link.links -%}
+                      <a href="{{ childlink.url }}" class="dropdown-link">
+                        <span class="dropdown-icon">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                        <span class="dropdown-text">{{ childlink.title }}</span>
+                      </a>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
             </li>
             {%- endif -%}
           {%- endfor -%}
         </ul>
       </nav>
 
-      <!-- Mobile Secondary Links -->
-      <div class="mobile-secondary">
-        <a href="{{ routes.account_url }}" class="mobile-secondary-link">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Account
-        </a>
-        <a href="/pages/careers" class="mobile-secondary-link">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Careers
-        </a>
-        <a href="/pages/contact" class="mobile-secondary-link">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Support
-        </a>
+      <!-- Header Actions -->
+      <div class="header__actions">
+        <!-- Search -->
+        <div class="action-item search-container">
+          <button class="action-btn search-btn" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="search-icon">
+              <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="search-overlay">
+            <div class="search-content">
+              <form action="{{ routes.search_url }}" method="get" class="search-form">
+                <div class="search-input-group">
+                  <input
+                    type="search"
+                    name="q"
+                    placeholder="Search premium products..."
+                    class="search-input"
+                    autocomplete="off"
+                  >
+                  <button type="submit" class="search-submit">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="action-item">
+          <a href="{{ routes.account_url }}" class="action-btn account-btn" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="account-icon">
+              <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Cart -->
+        <div class="action-item cart-container">
+          <a href="{{ routes.cart_url }}" class="action-btn cart-btn" id="cart-icon-bubble">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="cart-icon">
+              <path d="M7 4V2C7 1.44772 7.44772 1 8 1H12C12.5523 1 13 1.44772 13 2V4M7 4H5C4.44772 4 4 4.44772 4 5V17C4 18.1046 4.89543 19 6 19H14C15.1046 19 16 18.1046 16 17V5C16 4.44772 15.5523 4 15 4H13M7 4H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="action-item mobile-menu-toggle">
+          <button class="action-btn menu-toggle" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Search Overlay -->
-  <div class="search-overlay" id="search-overlay">
-    <div class="search-content">
-      <form action="{{ routes.search_url }}" method="get" class="search-form">
-        <div class="search-input-group">
-          <input
-            type="search"
-            name="q"
-            placeholder="Search premium products..."
-            class="search-input"
-            autocomplete="off"
-          >
-          <button type="submit" class="search-submit">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-backdrop"></div>
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <div class="mobile-logo">
+          <span class="logo-main">Damascus</span>
+          <span class="logo-sub">Premium</span>
         </div>
-      </form>
+        <button class="mobile-menu-close" aria-label="Close menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+          {%- for link in linklists.main-menu.links -%}
+            <li class="mobile-nav-item">
+              <a href="{{ link.url }}" class="mobile-nav-link">
+                <span class="mobile-nav-text">{{ link.title }}</span>
+                <span class="mobile-nav-arrow">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+              
+              {%- if link.links != blank -%}
+                <ul class="mobile-subnav">
+                  {%- for childlink in link.links -%}
+                    <li class="mobile-subnav-item">
+                      <a href="{{ childlink.url }}" class="mobile-subnav-link">
+                        {{ childlink.title }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
     </div>
   </div>
 </header>
-
-<style>
-/* Professional Header Styles - Industry Standard */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 80px;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 107, 53, 0.2);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.header.scrolled {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 107, 53, 0.3);
-}
-
-.header-container {
-  max-width: 1360px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-}
-
-/* Left Zone: Brand Block */
-.header-brand {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-  min-width: 260px;
-  max-width: 320px;
-}
-
-.brand-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.brand-badge {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-}
-
-.badge-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.brand-wordmark {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1;
-  color: #FFFFFF;
-  letter-spacing: -0.02em;
-}
-
-.brand-sublabel {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 1;
-  color: #FF6B35;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-/* Center Zone: Primary Navigation */
-.header-nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-}
-
-.nav-list {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  position: relative;
-}
-
-.nav-link {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1;
-  color: #FFFFFF;
-  text-decoration: none;
-  padding: 8px 0;
-  transition: color 0.2s ease;
-  white-space: nowrap;
-}
-
-.nav-link:hover {
-  color: #FF6B35;
-}
-
-/* Right Zone: Utility Actions */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex: 0 0 auto;
-}
-
-.utility-btn {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  color: #FFFFFF;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.utility-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #FF6B35;
-}
-
-.cart-btn {
-  position: relative;
-}
-
-.cart-count {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #FF6B35;
-  color: #FFFFFF;
-  font-size: 10px;
-  font-weight: 600;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-}
-
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.hamburger-line {
-  width: 20px;
-  height: 2px;
-  background: #FFFFFF;
-  transition: all 0.3s ease;
-}
-
-/* Mobile Menu Drawer */
-.mobile-menu-drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 84%;
-  max-width: 400px;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.98);
-  backdrop-filter: blur(20px);
-  z-index: 2000;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  overflow-y: auto;
-}
-
-.mobile-menu-drawer.active {
-  transform: translateX(0);
-}
-
-.drawer-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.drawer-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.drawer-close {
-  width: 44px;
-  height: 44px;
-  background: none;
-  border: none;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.drawer-content {
-  padding: 24px;
-}
-
-/* Mobile Search */
-.mobile-search {
-  margin-bottom: 32px;
-}
-
-.mobile-search-form {
-  display: flex;
-  gap: 12px;
-}
-
-.mobile-search-input {
-  flex: 1;
-  height: 44px;
-  padding: 0 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: #FFFFFF;
-  font-size: 16px;
-}
-
-.mobile-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.mobile-search-submit {
-  width: 44px;
-  height: 44px;
-  background: #FF6B35;
-  border: none;
-  border-radius: 8px;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Mobile Navigation */
-.mobile-nav-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 32px;
-}
-
-.mobile-nav-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.mobile-nav-link {
-  display: block;
-  padding: 20px 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  color: #FFFFFF;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.mobile-nav-link:hover {
-  color: #FF6B35;
-}
-
-/* Mobile Secondary Links */
-.mobile-secondary {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.mobile-secondary-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.mobile-secondary-link:hover {
-  color: #FF6B35;
-}
-
-/* Search Overlay */
-.search-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
-  z-index: 3000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.search-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.search-content {
-  width: 100%;
-  max-width: 600px;
-  padding: 0 24px;
-}
-
-.search-form {
-  width: 100%;
-}
-
-.search-input-group {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.search-input {
-  flex: 1;
-  height: 60px;
-  padding: 0 24px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  color: #FFFFFF;
-  font-size: 18px;
-  font-family: 'Inter', sans-serif;
-}
-
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: #FF6B35;
-}
-
-.search-submit {
-  width: 60px;
-  height: 60px;
-  background: #FF6B35;
-  border: none;
-  border-radius: 12px;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-}
-
-.search-submit:hover {
-  background: #E55A2B;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .nav-list {
-    gap: 32px;
-  }
-}
-
-@media (max-width: 991px) {
-  .header {
-    height: 70px;
-  }
-  
-  .header-container {
-    padding: 0 16px;
-  }
-  
-  .header-nav {
-    display: none;
-  }
-  
-  .mobile-menu-toggle {
-    display: flex;
-  }
-  
-  .brand-sublabel {
-    display: none;
-  }
-  
-  .brand-wordmark {
-    font-size: 20px;
-  }
-  
-  .header-actions {
-    gap: 12px;
-  }
-  
-  .utility-btn {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 640px) {
-  .header-container {
-    padding: 0 12px;
-  }
-  
-  .brand-wordmark {
-    font-size: 18px;
-  }
-  
-  .brand-badge {
-    width: 40px;
-    height: 40px;
-  }
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const header = document.getElementById('header');
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const drawerClose = document.querySelector('.drawer-close');
-  const searchBtn = document.querySelector('.search-btn');
-  const searchOverlay = document.getElementById('search-overlay');
-  const searchInput = document.querySelector('.search-input');
-
-  // Header scroll effect
-  let lastScrollY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    
-    if (currentScrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-    
-    lastScrollY = currentScrollY;
-  });
-
-  // Mobile menu toggle
-  if (mobileMenuToggle && mobileMenu) {
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenu.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-
-  if (drawerClose && mobileMenu) {
-    drawerClose.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  }
-
-  // Close mobile menu on backdrop click
-  mobileMenu.addEventListener('click', (e) => {
-    if (e.target === mobileMenu) {
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  });
-
-  // Search overlay
-  if (searchBtn && searchOverlay) {
-    searchBtn.addEventListener('click', () => {
-      searchOverlay.classList.add('active');
-      if (searchInput) {
-        setTimeout(() => searchInput.focus(), 100);
-      }
-    });
-  }
-
-  // Close search overlay
-  searchOverlay.addEventListener('click', (e) => {
-    if (e.target === searchOverlay) {
-      searchOverlay.classList.remove('active');
-    }
-  });
-
-  // ESC key handling
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (mobileMenu.classList.contains('active')) {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-        mobileMenuToggle.focus();
-      }
-      if (searchOverlay.classList.contains('active')) {
-        searchOverlay.classList.remove('active');
-        searchBtn.focus();
-      }
-    }
-  });
-
-  // Focus trap for mobile menu
-  const focusableElements = mobileMenu.querySelectorAll(
-    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-  );
-  
-  if (focusableElements.length > 0) {
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    mobileMenu.addEventListener('keydown', (e) => {
-      if (e.key === 'Tab') {
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            lastElement.focus();
-            e.preventDefault();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            firstElement.focus();
-            e.preventDefault();
-          }
-        }
-      }
-    });
-  }
-});
-</script>
 
 <style>
   /* Import Premium Fonts */
