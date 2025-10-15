@@ -17,7 +17,7 @@
               </linearGradient>
             </defs>
             <path d="M20 20 L80 20 L80 80 L20 80 Z" fill="url(#logoGradient)" class="badge-path"/>
-            <text x="50" y="60" text-anchor="middle" class="badge-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="32">M</text>
+            <text x="50" y="60" text-anchor="middle" class="badge-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="28">M</text>
           </svg>
         </div>
         <div class="brand-text">
@@ -102,7 +102,7 @@
               </linearGradient>
             </defs>
             <path d="M20 20 L80 20 L80 80 L20 80 Z" fill="url(#mobileLogoGradient)" class="badge-path"/>
-            <text x="50" y="60" text-anchor="middle" class="badge-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="32">M</text>
+            <text x="50" y="60" text-anchor="middle" class="badge-text" fill="white" font-family="Inter, sans-serif" font-weight="800" font-size="28">M</text>
           </svg>
         </div>
         <span class="brand-wordmark">Damascus</span>
@@ -199,18 +199,22 @@
 <style>
 /* Professional Header Styles - Industry Standard */
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  height: 72px;
-  background: rgba(0, 0, 0, 0.95);
+  height: 80px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header.scrolled {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.3);
 }
 
 .header-container {
@@ -611,7 +615,7 @@
 
 @media (max-width: 991px) {
   .header {
-    height: 64px;
+    height: 70px;
   }
   
   .header-container {
@@ -675,7 +679,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
     
-    if (currentScrollY > 8) {
+    if (currentScrollY > 50) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
