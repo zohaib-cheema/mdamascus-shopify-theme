@@ -125,13 +125,6 @@
     <div class="product-details-section">
       <div class="page-width">
         <div class="product-details-content">
-          {%- if product.description != blank -%}
-            <div class="product-description">
-              <h3>Product Description</h3>
-              {{ product.description }}
-            </div>
-          {%- endif -%}
-
           {%- if product.metafields.custom.product_features != blank -%}
             <div class="product-features">
               <h3>{{ 'products.product.features' | t }}</h3>
