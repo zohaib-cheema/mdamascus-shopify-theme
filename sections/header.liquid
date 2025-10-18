@@ -699,6 +699,11 @@
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
+    display: flex !important;
+  }
+  
+  .mobile-menu-toggle {
+    display: block !important;
   }
 
   .hamburger-line {
@@ -742,11 +747,28 @@
   }
 
   @media (max-width: 768px) {
+    .header-container {
+      padding: 0 1rem;
+    }
+    
     .header__content {
       padding: 1rem 0;
       min-height: 70px;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+    }
+    
+    .header__brand {
+      justify-self: start;
+    }
+    
+    .header__nav {
+      display: none;
+    }
+    
+    .header__actions {
+      justify-self: end;
+      gap: 0.5rem;
     }
     
     .logo-container {
@@ -767,16 +789,62 @@
     }
     
     .action-btn {
-      width: 20px;
-      height: 20px;
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
     }
     
-    .header__actions {
-      gap: 1rem;
+    .hamburger-line {
+      width: 18px;
+      height: 2px;
+      margin: 3px 0;
     }
     
     .search-overlay {
       width: 280px;
+    }
+    
+    .cart-badge {
+      top: 6px;
+      right: 6px;
+      font-size: 0.7rem;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .header-container {
+      padding: 0 0.5rem;
+    }
+    
+    .header__content {
+      min-height: 60px;
+      padding: 0.5rem 0;
+    }
+    
+    .logo-main {
+      font-size: 1.3rem;
+    }
+    
+    .action-btn {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
+    }
+    
+    .hamburger-line {
+      width: 16px;
+      height: 2px;
+      margin: 2px 0;
+    }
+    
+    .header__actions {
+      gap: 0.25rem;
     }
   }
 </style>
