@@ -87,6 +87,21 @@ body {
   overflow-x: hidden;
 }
 
+/* Ensure all text is light colored for readability */
+* {
+  color: inherit;
+}
+
+/* Force light text colors for better readability */
+p, span, div, a, li, td, th, label, input, textarea, select {
+  color: var(--color-light) !important;
+}
+
+/* Exception for orange accent colors */
+.color-accent, .price--sale, .badge--sale, .btn-primary, .nav-link:hover, .action-btn {
+  color: var(--color-primary) !important;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
