@@ -219,13 +219,6 @@
                 {%- endif -%}
               </div>
               
-              <div class="product-overlay">
-                <a href="{{ product.url }}" class="product-link">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 3H21V9M21 3L9 15M21 3V9H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-              </div>
             </div>
             
             <div class="product-info">
@@ -602,7 +595,7 @@
 
   .btn-primary {
     background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     box-shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
   }
 
@@ -673,6 +666,12 @@
 
   .btn:hover .btn-shine {
     left: 100%;
+  }
+
+  .btn-sm {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    min-height: 44px;
   }
 
 
