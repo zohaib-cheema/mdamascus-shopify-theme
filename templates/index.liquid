@@ -235,12 +235,6 @@
                 {%- endif -%}
               </div>
               
-              <div class="product-rating">
-                <div class="stars">
-                  <span>★★★★★</span>
-                </div>
-                <span class="rating-count">({{ product.metafields.reviews.rating_count | default: '24' }})</span>
-              </div>
               
               <div class="product-actions">
                 <a href="{{ product.url }}" class="btn btn-primary btn-sm">View Details</a>
@@ -1099,20 +1093,6 @@
     margin-left: var(--space-xs);
   }
 
-  .product-rating {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-  }
-
-  .stars {
-    color: var(--color-primary);
-  }
-
-  .rating-count {
-    color: var(--color-light-muted);
-    font-size: var(--font-size-sm);
-  }
 
   /* Features Section */
   .features-section {
