@@ -3,65 +3,65 @@
 {% endcomment %}
 
 <div class="product-page">
-  <!-- Product Image Slideshow -->
+  <!-- Product Layout with Side-by-Side Design -->
   {%- if product.media.size > 0 -%}
-    <div class="product-slideshow-section">
+    <div class="product-main-section">
       <div class="page-width">
-        <div class="product-slideshow">
-          <div class="slideshow-container">
-            {%- for media in product.media -%}
-              <div class="slide {% if forloop.first %}active{% endif %}">
-                {%- case media.media_type -%}
-                  {%- when 'image' -%}
-                    <img
-                      src="{{ media | image_url: width: 1200 }}"
-                      alt="{{ media.alt | escape }}"
-                      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                      width="{{ media.width }}"
-                      height="{{ media.height }}"
-                    >
-                  {%- when 'video' -%}
-                    {{ media | video_tag: controls: true }}
-                  {%- when 'external_video' -%}
-                    {{ media | external_video_tag }}
-                  {%- when 'model' -%}
-                    {{ media | model_viewer_tag }}
-                {%- endcase -%}
+        <div class="product-layout">
+          <!-- Left Side - Slideshow -->
+          <div class="product-slideshow-container">
+            <div class="product-slideshow">
+              <div class="slideshow-container">
+                {%- for media in product.media -%}
+                  <div class="slide {% if forloop.first %}active{% endif %}">
+                    {%- case media.media_type -%}
+                      {%- when 'image' -%}
+                        <img
+                          src="{{ media | image_url: width: 1200 }}"
+                          alt="{{ media.alt | escape }}"
+                          loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                          width="{{ media.width }}"
+                          height="{{ media.height }}"
+                        >
+                      {%- when 'video' -%}
+                        {{ media | video_tag: controls: true }}
+                      {%- when 'external_video' -%}
+                        {{ media | external_video_tag }}
+                      {%- when 'model' -%}
+                        {{ media | model_viewer_tag }}
+                    {%- endcase -%}
+                  </div>
+                {%- endfor -%}
               </div>
-            {%- endfor -%}
+              
+              <!-- Slideshow Navigation -->
+              {%- if product.media.size > 1 -%}
+                <div class="slideshow-nav">
+                  <button class="nav-btn prev-btn" aria-label="Previous image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <button class="nav-btn next-btn" aria-label="Next image">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+                
+                <!-- Slide Indicators -->
+                <div class="slide-indicators">
+                  {%- for media in product.media -%}
+                    <button class="indicator {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
           </div>
-          
-          <!-- Slideshow Navigation -->
-          {%- if product.media.size > 1 -%}
-            <div class="slideshow-nav">
-              <button class="nav-btn prev-btn" aria-label="Previous image">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-              <button class="nav-btn next-btn" aria-label="Next image">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-            
-            <!-- Slide Indicators -->
-            <div class="slide-indicators">
-              {%- for media in product.media -%}
-                <button class="indicator {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
 
-  <!-- Product Information -->
-  <div class="product-info-section">
-    <div class="page-width">
-      <div class="product-info">
+          <!-- Right Side - Product Info -->
+          <div class="product-info-container">
+            <div class="product-info">
         <h1 class="product-title">{{ product.title }}</h1>
         
         {%- if product.vendor != blank -%}
@@ -115,26 +115,67 @@
             {{ product.metafields.custom.product_features }}
           </div>
         {%- endif -%}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
+    <!-- Product Details Continuation Section -->
+    <div class="product-details-section">
+      <div class="page-width">
+        <div class="product-details-content">
+          {%- if product.description != blank -%}
+            <div class="product-description">
+              <h3>Product Description</h3>
+              {{ product.description }}
+            </div>
+          {%- endif -%}
+
+          {%- if product.metafields.custom.product_features != blank -%}
+            <div class="product-features">
+              <h3>{{ 'products.product.features' | t }}</h3>
+              {{ product.metafields.custom.product_features }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
 </div>
 
 <style>
   .product-page {
     padding: 0;
+    padding-top: 6rem; /* Add space to account for fixed header */
   }
 
-  /* Product Slideshow Section */
-  .product-slideshow-section {
+  /* Main Product Section - Side by Side Layout */
+  .product-main-section {
     padding: 2rem 0 4rem;
     background: var(--color-dark);
+    min-height: 80vh;
+  }
+
+  .product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Left Side - Slideshow */
+  .product-slideshow-container {
+    position: sticky;
+    top: 8rem; /* Account for header height */
+    height: fit-content;
   }
 
   .product-slideshow {
     position: relative;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -143,7 +184,7 @@
   .slideshow-container {
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 500px;
     overflow: hidden;
   }
 
@@ -230,16 +271,17 @@
     background: rgba(255, 107, 53, 0.7);
   }
 
-  /* Product Info Section */
-  .product-info-section {
-    padding: 4rem 0 6rem;
-    background: var(--color-dark-light);
+  /* Right Side - Product Info */
+  .product-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
   }
 
   .product-info {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+    width: 100%;
+    text-align: left;
   }
 
   .product-title {
@@ -307,38 +349,88 @@
     border-top: 1px solid var(--color-base-background-2);
   }
 
+  /* Product Details Continuation Section */
+  .product-details-section {
+    padding: 4rem 0 6rem;
+    background: var(--color-dark-light);
+  }
+
+  .product-details-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .product-details-content h3 {
+    margin-bottom: 1.5rem;
+    color: var(--color-base-text);
+    font-size: 1.8rem;
+  }
+
+  .product-description {
+    margin-bottom: 3rem;
+  }
+
   .product-features h3 {
     margin-bottom: 1.5rem;
     color: var(--color-base-text);
   }
 
   /* Responsive Design */
-  @media screen and (max-width: 1024px) {
-    .slideshow-container {
-      height: 500px;
+  @media screen and (max-width: 1200px) {
+    .product-layout {
+      gap: 3rem;
+      max-width: 1200px;
     }
     
-    .product-slideshow {
-      max-width: 700px;
+    .slideshow-container {
+      height: 450px;
     }
   }
 
-  @media screen and (max-width: 768px) {
-    .product-slideshow-section {
-      padding: 1rem 0 3rem;
+  @media screen and (max-width: 1024px) {
+    .product-layout {
+      gap: 2rem;
     }
     
     .slideshow-container {
       height: 400px;
     }
     
-    .product-slideshow {
-      max-width: 100%;
-      margin: 0 1rem;
+    .product-title {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .product-page {
+      padding-top: 5rem;
     }
     
-    .product-info-section {
-      padding: 3rem 0 4rem;
+    .product-main-section {
+      padding: 1rem 0 3rem;
+    }
+    
+    .product-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .product-slideshow-container {
+      position: static;
+      order: 1;
+    }
+    
+    .product-info-container {
+      order: 2;
+      padding: 1rem 0;
+    }
+    
+    .product-info {
+      text-align: center;
+    }
+    
+    .slideshow-container {
+      height: 350px;
     }
     
     .product-title {
@@ -357,16 +449,20 @@
   }
 
   @media screen and (max-width: 480px) {
+    .product-page {
+      padding-top: 4rem;
+    }
+    
     .slideshow-container {
       height: 300px;
     }
     
-    .product-info-section {
-      padding: 2rem 0 3rem;
-    }
-    
     .product-title {
       font-size: 1.8rem;
+    }
+    
+    .product-details-section {
+      padding: 3rem 0 4rem;
     }
   }
 </style>
