@@ -3,19 +3,20 @@
 {% endcomment %}
 
 <div class="product-page">
-  <div class="page-width">
-    <div class="product-grid">
-      <div class="product-media">
-        {%- if product.media.size > 0 -%}
-          <div class="product-media-gallery">
+  <!-- Product Image Slideshow -->
+  {%- if product.media.size > 0 -%}
+    <div class="product-slideshow-section">
+      <div class="page-width">
+        <div class="product-slideshow">
+          <div class="slideshow-container">
             {%- for media in product.media -%}
-              <div class="product-media-item">
+              <div class="slide {% if forloop.first %}active{% endif %}">
                 {%- case media.media_type -%}
                   {%- when 'image' -%}
                     <img
-                      src="{{ media | image_url: width: 800 }}"
+                      src="{{ media | image_url: width: 1200 }}"
                       alt="{{ media.alt | escape }}"
-                      loading="lazy"
+                      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                       width="{{ media.width }}"
                       height="{{ media.height }}"
                     >
@@ -29,9 +30,37 @@
               </div>
             {%- endfor -%}
           </div>
-        {%- endif -%}
+          
+          <!-- Slideshow Navigation -->
+          {%- if product.media.size > 1 -%}
+            <div class="slideshow-nav">
+              <button class="nav-btn prev-btn" aria-label="Previous image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <button class="nav-btn next-btn" aria-label="Next image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Slide Indicators -->
+            <div class="slide-indicators">
+              {%- for media in product.media -%}
+                <button class="indicator {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
       </div>
+    </div>
+  {%- endif -%}
 
+  <!-- Product Information -->
+  <div class="product-info-section">
+    <div class="page-width">
       <div class="product-info">
         <h1 class="product-title">{{ product.title }}</h1>
         
@@ -93,25 +122,124 @@
 
 <style>
   .product-page {
-    padding: 6rem 0;
+    padding: 0;
   }
 
-  .product-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
+  /* Product Slideshow Section */
+  .product-slideshow-section {
+    padding: 2rem 0 4rem;
+    background: var(--color-dark);
   }
 
-  .product-media-gallery {
-    display: grid;
-    gap: 1.5rem;
+  .product-slideshow {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   }
 
-  .product-media-item img {
+  .slideshow-container {
+    position: relative;
     width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
+    height: 600px;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Slideshow Navigation */
+  .slideshow-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    pointer-events: none;
+  }
+
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-btn:hover {
+    background: rgba(255, 107, 53, 0.8);
+    transform: scale(1.1);
+  }
+
+  /* Slide Indicators */
+  .slide-indicators {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .indicator.active {
+    background: var(--color-primary);
+    transform: scale(1.2);
+  }
+
+  .indicator:hover {
+    background: rgba(255, 107, 53, 0.7);
+  }
+
+  /* Product Info Section */
+  .product-info-section {
+    padding: 4rem 0 6rem;
+    background: var(--color-dark-light);
+  }
+
+  .product-info {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .product-title {
@@ -184,34 +312,154 @@
     color: var(--color-base-text);
   }
 
+  /* Responsive Design */
   @media screen and (max-width: 1024px) {
-    .product-page {
-      padding: 4rem 0;
+    .slideshow-container {
+      height: 500px;
     }
-
-    .product-grid {
-      gap: 3rem;
+    
+    .product-slideshow {
+      max-width: 700px;
     }
   }
 
   @media screen and (max-width: 768px) {
-    .product-page {
-      padding: 3rem 0;
+    .product-slideshow-section {
+      padding: 1rem 0 3rem;
     }
-
-    .product-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+    
+    .slideshow-container {
+      height: 400px;
+    }
+    
+    .product-slideshow {
+      max-width: 100%;
+      margin: 0 1rem;
+    }
+    
+    .product-info-section {
+      padding: 3rem 0 4rem;
     }
     
     .product-title {
       font-size: 2rem;
     }
+    
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .nav-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 
-    .product-media-gallery {
-      gap: 1rem;
+  @media screen and (max-width: 480px) {
+    .slideshow-container {
+      height: 300px;
+    }
+    
+    .product-info-section {
+      padding: 2rem 0 3rem;
+    }
+    
+    .product-title {
+      font-size: 1.8rem;
     }
   }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.slide');
+  const indicators = document.querySelectorAll('.indicator');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  
+  if (slides.length === 0) return;
+  
+  let currentSlide = 0;
+  
+  function showSlide(index) {
+    // Remove active class from all slides and indicators
+    slides.forEach(slide => slide.classList.remove('active'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    
+    // Add active class to current slide and indicator
+    slides[index].classList.add('active');
+    if (indicators[index]) {
+      indicators[index].classList.add('active');
+    }
+    
+    currentSlide = index;
+  }
+  
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }
+  
+  function prevSlide() {
+    const prev = currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
+    showSlide(prev);
+  }
+  
+  // Event listeners
+  if (nextBtn) {
+    nextBtn.addEventListener('click', nextSlide);
+  }
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', prevSlide);
+  }
+  
+  // Indicator click events
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      showSlide(index);
+    });
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+    }
+  });
+  
+  // Touch/swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  const slideshow = document.querySelector('.slideshow-container');
+  if (slideshow) {
+    slideshow.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    slideshow.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+  }
+  
+  function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        nextSlide(); // Swipe left - next slide
+      } else {
+        prevSlide(); // Swipe right - previous slide
+      }
+    }
+  }
+});
+</script>
  
  <div id='Areviewsapp' class='page-full'>{%  render 'aliexpress_reviews' , product: product %}</div>
