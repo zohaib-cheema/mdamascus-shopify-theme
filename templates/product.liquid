@@ -48,12 +48,6 @@
           {%- endif -%}
         </div>
 
-        {%- if product.description != blank -%}
-          <div class="product-description">
-            {{ product.description }}
-          </div>
-        {%- endif -%}
-
         {%- form 'product', product, id: 'product-form', class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
           <input type="hidden" name="quantity" value="1">
@@ -79,6 +73,12 @@
             </button>
           </div>
         {%- endform -%}
+
+        {%- if product.description != blank -%}
+          <div class="product-description">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
 
         {%- if product.metafields.custom.product_features != blank -%}
           <div class="product-features">
